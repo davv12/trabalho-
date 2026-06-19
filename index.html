@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- HOME SCREEN -->
-    <div id="home-screen" class="screen active">
+    <!-- SCREEN 1: DISCOVER/HOME -->
+    <div id="discover-screen" class="screen active">
         <div class="frame-container">
             <!-- Top AppBar -->
             <header class="top-app-bar">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="right-container">
-                        <button class="icon-button" id="favorites-btn" title="Favoritos">♡</button>
+                        <button class="icon-button" title="Favoritos">♡</button>
                         <button class="user-profile-border" id="profile-btn" title="Perfil">
                             <div class="user-profile"></div>
                         </button>
@@ -51,7 +51,7 @@
                         <a href="#" class="view-all-link">Ver Tudo →</a>
                     </div>
                     <div class="businesses-carousel">
-                        <div class="business-card" onclick="navigateToDetail()">
+                        <div class="business-card">
                             <div class="business-image"></div>
                             <div class="business-info">
                                 <h3 class="business-name">The Golden Crumb</h3>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="business-card" onclick="navigateToDetail()">
+                        <div class="business-card">
                             <div class="business-image" style="background: linear-gradient(135deg, #8B4513, #A0522D);"></div>
                             <div class="business-info">
                                 <h3 class="business-name">Lumina Day Spa</h3>
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="business-card" onclick="navigateToDetail()">
+                        <div class="business-card">
                             <div class="business-image" style="background: linear-gradient(135deg, #DAA520, #CD853F);"></div>
                             <div class="business-info">
                                 <h3 class="business-name">Rapid Cycles</h3>
@@ -111,15 +111,15 @@
 
             <!-- Bottom Navigation -->
             <nav class="bottom-navigation">
-                <button class="nav-item active" id="nav-home" onclick="switchScreen('home-screen')">
+                <button class="nav-item active" title="Descobrir">
                     <span class="nav-icon">🔍</span>
                     <span class="nav-label">Descobrir</span>
                 </button>
-                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
-                    <span class="nav-icon">♡</span>
-                    <span class="nav-label">Favoritos</span>
+                <button class="nav-item" id="map-btn" title="Mapa">
+                    <span class="nav-icon">📍</span>
+                    <span class="nav-label">Navegar</span>
                 </button>
-                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                <button class="nav-item" id="profile-btn-nav" title="Perfil">
                     <span class="nav-icon">👤</span>
                     <span class="nav-label">Perfil</span>
                 </button>
@@ -127,21 +127,20 @@
         </div>
     </div>
 
-    <!-- BUSINESS DETAIL SCREEN -->
-    <div id="detail-screen" class="screen">
+    <!-- SCREEN 2: MAP/NAVIGATION -->
+    <div id="map-screen" class="screen">
         <div class="frame-container">
             <!-- Top AppBar -->
             <header class="top-app-bar">
                 <div class="app-bar-container">
                     <div class="left-container">
-                        <button class="button-icon" onclick="navigateBack()">←</button>
                         <div class="brand-container">
                             <span class="brand-text">Neighborly</span>
                         </div>
                     </div>
                     <div class="right-container">
-                        <button class="icon-button" onclick="toggleFavorite()">♡</button>
-                        <button class="user-profile-border" onclick="switchScreen('profile-screen')">
+                        <button class="icon-button" title="Filtros">🔽</button>
+                        <button class="user-profile-border" title="Perfil">
                             <div class="user-profile"></div>
                         </button>
                     </div>
@@ -150,133 +149,13 @@
 
             <!-- Main Content -->
             <main class="main-content">
-                <!-- Business Hero Section -->
-                <section class="business-hero-section">
-                    <div class="business-cover"></div>
-                    <div class="background-overlay">
-                        <div class="hero-content-container">
-                            <div class="hero-text-container">
-                                <h1 class="heading-1">L'Artisan Boulangerie</h1>
-                                <div class="category-rating-container">
-                                    <div class="category-badge">Padaria</div>
-                                    <div class="rating-container">
-                                        <span class="star-icon">★</span>
-                                        <div class="rating-number">4.9</div>
-                                        <div class="reviews-count">(124 avaliações)</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="verified-badge">
-                                <span class="verified-icon">✓</span>
-                                <span class="verified-text">Verificado Localmente</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Search Section -->
+                <section class="search-section">
+                    <input type="text" class="search-input" placeholder="Buscar localizações próximas..." />
                 </section>
 
-                <!-- Business Stats Section -->
-                <section class="business-stats-section">
-                    <div class="stat-chip">
-                        <span class="stat-icon">🕐</span>
-                        <span class="stat-text">Aberto até 19h</span>
-                    </div>
-                    <div class="stat-chip">
-                        <span class="stat-icon">📍</span>
-                        <span class="stat-text">Pinheiros, SP</span>
-                    </div>
-                    <div class="stat-chip">
-                        <span class="stat-icon">🚚</span>
-                        <span class="stat-text">Entrega Local</span>
-                    </div>
-                </section>
-
-                <!-- Experiences Section -->
-                <section class="experiences-section">
-                    <div class="experiences-header-container">
-                        <div class="experiences-text-container">
-                            <h2 class="heading-2">Experiências Reais</h2>
-                            <p class="experiences-description">Veja o que a comunidade está<br>vivenciando hoje.</p>
-                        </div>
-                        <button class="view-all-button" onclick="alert('Ver todas as experiências')">
-                            <span>Ver<br>todas</span>
-                            <span class="arrow-icon">→</span>
-                        </button>
-                    </div>
-
-                    <div class="horizontal-carousel">
-                        <div class="social-proof-card">
-                            <div class="card-background"></div>
-                            <div class="card-gradient"></div>
-                            <div class="card-content">
-                                <p class="experience-quote">"O melhor croissant que já comi<br>em São Paulo. Crocante e…</p>
-                                <div class="likes-container">
-                                    <span class="like-icon">♥</span>
-                                    <span class="likes-count">24 curtidas</span>
-                                </div>
-                            </div>
-                            <div class="user-profile-card">
-                                <div class="user-avatar"></div>
-                                <span class="user-name">Ricardo M.</span>
-                            </div>
-                        </div>
-
-                        <div class="social-proof-card">
-                            <div class="card-background card-bg-2"></div>
-                            <div class="video-overlay">▶</div>
-                            <div class="card-gradient"></div>
-                            <div class="card-content card-content-video">
-                                <div class="video-badge">VÍDEO</div>
-                                <p class="experience-quote">"A ambientação é perfeita para<br>um café da manhã calmo…</p>
-                            </div>
-                            <div class="user-profile-card">
-                                <div class="user-avatar"></div>
-                                <span class="user-name">Juliana S.</span>
-                            </div>
-                        </div>
-
-                        <div class="social-proof-card">
-                            <div class="card-background card-bg-3"></div>
-                            <div class="card-gradient"></div>
-                            <div class="card-content card-content-3">
-                                <p class="experience-quote">"Espaço pet friendly e o café é<br>torrado no local. Recomendo…</p>
-                            </div>
-                            <div class="user-profile-card">
-                                <div class="user-avatar"></div>
-                                <span class="user-name">Marcos V.</span>
-                            </div>
-                        </div>
-
-                        <div class="more-card">
-                            <div class="more-card-content">
-                                <span class="plus-icon">+</span>
-                                <p class="more-card-text">Compartilhe sua<br>experiência</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- About Section -->
-                <section class="about-section">
-                    <div class="about-container">
-                        <h3 class="about-heading">Sobre nós</h3>
-                        <p class="about-description">Fundada em 2018, a L'Artisan Boulangerie traz a tradição francesa para o coração de Pinheiros. Utilizamos apenas fermentação natural e ingredientes de produtores locais para garantir o sabor mais autêntico e saudável.</p>
-                        <div class="features-list">
-                            <div class="feature-item">
-                                <span class="feature-icon">📶</span>
-                                <span class="feature-text">Wi-Fi Grátis para clientes</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">🐕</span>
-                                <span class="feature-text">Ambiente Pet Friendly</span>
-                            </div>
-                            <div class="feature-item">
-                                <span class="feature-icon">♿</span>
-                                <span class="feature-text">Acessibilidade Completa</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Map Section -->
+                <!-- Map Section -->
+                <section class="map-section">
                     <div class="map-integration">
                         <div class="map-placeholder"></div>
                         <div class="map-overlay"></div>
@@ -285,32 +164,66 @@
                                 <p class="address-street">Rua dos Pinheiros, 1234</p>
                                 <p class="address-city">São Paulo - SP</p>
                             </div>
-                            <button class="map-button" onclick="alert('Abrir mapa')">📍</button>
+                            <button class="map-button">📍</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Nearby Places -->
+                <section class="nearby-section">
+                    <h2 class="section-title">Perto de você</h2>
+                    <div class="nearby-list">
+                        <div class="nearby-item">
+                            <div class="nearby-icon">🍞</div>
+                            <div class="nearby-info">
+                                <h3>The Golden Crumb</h3>
+                                <p>Padaria • 0.5 km</p>
+                                <div class="rating-mini">★★★★★ 4.9</div>
+                            </div>
+                            <span class="distance-badge">500m</span>
+                        </div>
+                        <div class="nearby-item">
+                            <div class="nearby-icon">💆</div>
+                            <div class="nearby-info">
+                                <h3>Lumina Day Spa</h3>
+                                <p>Bem-estar • 1.8 km</p>
+                                <div class="rating-mini">★★★★★ 4.8</div>
+                            </div>
+                            <span class="distance-badge">1.8km</span>
+                        </div>
+                        <div class="nearby-item">
+                            <div class="nearby-icon">🚴</div>
+                            <div class="nearby-info">
+                                <h3>Rapid Cycles</h3>
+                                <p>Serviços • 0.9 km</p>
+                                <div class="rating-mini">★★★★★ 5.0</div>
+                            </div>
+                            <span class="distance-badge">900m</span>
+                        </div>
+                        <div class="nearby-item">
+                            <div class="nearby-icon">☕</div>
+                            <div class="nearby-info">
+                                <h3>Café Central</h3>
+                                <p>Café • 1.2 km</p>
+                                <div class="rating-mini">★★★★☆ 4.5</div>
+                            </div>
+                            <span class="distance-badge">1.2km</span>
                         </div>
                     </div>
                 </section>
             </main>
 
-            <!-- Bottom Action Bar -->
-            <footer class="bottom-action-bar">
-                <button class="whatsapp-button" onclick="alert('Abrindo WhatsApp...')">
-                    <span class="whatsapp-icon">💬</span>
-                    <span class="whatsapp-text">Conversar no WhatsApp</span>
-                </button>
-                <p class="action-subtitle">Reservas e pedidos rápidos em 5 min.</p>
-            </footer>
-
             <!-- Bottom Navigation -->
             <nav class="bottom-navigation">
-                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
+                <button class="nav-item" onclick="switchScreen('discover-screen')" title="Descobrir">
                     <span class="nav-icon">🔍</span>
                     <span class="nav-label">Descobrir</span>
                 </button>
-                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
-                    <span class="nav-icon">♡</span>
-                    <span class="nav-label">Favoritos</span>
+                <button class="nav-item active" title="Navegar">
+                    <span class="nav-icon">📍</span>
+                    <span class="nav-label">Navegar</span>
                 </button>
-                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                <button class="nav-item" onclick="switchScreen('profile-screen')" title="Perfil">
                     <span class="nav-icon">👤</span>
                     <span class="nav-label">Perfil</span>
                 </button>
@@ -318,20 +231,19 @@
         </div>
     </div>
 
-    <!-- PROFILE SCREEN -->
+    <!-- SCREEN 3: PROFILE -->
     <div id="profile-screen" class="screen">
         <div class="frame-container">
             <!-- Top AppBar -->
             <header class="top-app-bar">
                 <div class="app-bar-container">
                     <div class="left-container">
-                        <button class="button-icon" onclick="navigateBack()">←</button>
                         <div class="brand-container">
                             <span class="brand-text">Perfil</span>
                         </div>
                     </div>
                     <div class="right-container">
-                        <button class="icon-button" onclick="alert('Configurações')">⚙️</button>
+                        <button class="icon-button" title="Configurações">⚙️</button>
                     </div>
                 </div>
             </header>
@@ -404,12 +316,12 @@
 
                 <!-- Help & Privacy -->
                 <section class="profile-section">
-                    <button class="help-button" onclick="alert('Central de Ajuda')">
+                    <button class="help-button">
                         <span class="help-icon">❓</span>
                         <span>Central de Ajuda</span>
                         <span class="arrow">›</span>
                     </button>
-                    <button class="help-button" onclick="alert('Política de Privacidade')">
+                    <button class="help-button">
                         <span class="help-icon">🔒</span>
                         <span>Privacidade</span>
                         <span class="arrow">›</span>
@@ -426,98 +338,15 @@
 
             <!-- Bottom Navigation -->
             <nav class="bottom-navigation">
-                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
+                <button class="nav-item" onclick="switchScreen('discover-screen')" title="Descobrir">
                     <span class="nav-icon">🔍</span>
                     <span class="nav-label">Descobrir</span>
                 </button>
-                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
-                    <span class="nav-icon">♡</span>
-                    <span class="nav-label">Favoritos</span>
+                <button class="nav-item" onclick="switchScreen('map-screen')" title="Navegar">
+                    <span class="nav-icon">📍</span>
+                    <span class="nav-label">Navegar</span>
                 </button>
-                <button class="nav-item active" id="nav-profile" onclick="switchScreen('profile-screen')">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-label">Perfil</span>
-                </button>
-            </nav>
-        </div>
-    </div>
-
-    <!-- FAVORITES SCREEN -->
-    <div id="favorites-screen" class="screen">
-        <div class="frame-container">
-            <!-- Top AppBar -->
-            <header class="top-app-bar">
-                <div class="app-bar-container">
-                    <div class="left-container">
-                        <button class="button-icon" onclick="navigateBack()">←</button>
-                        <div class="brand-container">
-                            <span class="brand-text">Favoritos</span>
-                        </div>
-                    </div>
-                    <div class="right-container">
-                        <button class="icon-button" onclick="alert('Filtrar')">🔽</button>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Main Content -->
-            <main class="main-content favorites-content">
-                <section class="favorites-list">
-                    <div class="favorite-item" onclick="navigateToDetail()">
-                        <div class="favorite-image"></div>
-                        <div class="favorite-info">
-                            <h3>The Golden Crumb</h3>
-                            <p class="favorite-category">Padaria</p>
-                            <p class="favorite-distance">2.4 km • Downtown</p>
-                            <div class="favorite-rating">
-                                <span class="star">★★★★★</span>
-                                <span class="rating">4.9</span>
-                            </div>
-                        </div>
-                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
-                    </div>
-
-                    <div class="favorite-item" onclick="navigateToDetail()">
-                        <div class="favorite-image" style="background: linear-gradient(135deg, #8B4513, #A0522D);"></div>
-                        <div class="favorite-info">
-                            <h3>Lumina Day Spa</h3>
-                            <p class="favorite-category">Bem-estar</p>
-                            <p class="favorite-distance">1.8 km • Centro</p>
-                            <div class="favorite-rating">
-                                <span class="star">★★★★★</span>
-                                <span class="rating">4.8</span>
-                            </div>
-                        </div>
-                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
-                    </div>
-
-                    <div class="favorite-item" onclick="navigateToDetail()">
-                        <div class="favorite-image" style="background: linear-gradient(135deg, #DAA520, #CD853F);"></div>
-                        <div class="favorite-info">
-                            <h3>Rapid Cycles</h3>
-                            <p class="favorite-category">Serviços</p>
-                            <p class="favorite-distance">0.9 km • Próximo</p>
-                            <div class="favorite-rating">
-                                <span class="star">★★★★★</span>
-                                <span class="rating">5.0</span>
-                            </div>
-                        </div>
-                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
-                    </div>
-                </section>
-            </main>
-
-            <!-- Bottom Navigation -->
-            <nav class="bottom-navigation">
-                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
-                    <span class="nav-icon">🔍</span>
-                    <span class="nav-label">Descobrir</span>
-                </button>
-                <button class="nav-item active" id="nav-favorites" onclick="switchScreen('favorites-screen')">
-                    <span class="nav-icon">♡</span>
-                    <span class="nav-label">Favoritos</span>
-                </button>
-                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                <button class="nav-item active" title="Perfil">
                     <span class="nav-icon">👤</span>
                     <span class="nav-label">Perfil</span>
                 </button>
