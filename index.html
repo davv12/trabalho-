@@ -3,189 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neighborly</title>
+    <title>Neighborly - Descobra seu bairro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="frame-container">
-        <!-- Top AppBar -->
-        <header class="top-app-bar">
-            <div class="app-bar-container">
-                <div class="left-container">
-                    <button class="button-icon">←</button>
-                    <div class="brand-container">
-                        <span class="brand-text">Neighborly</span>
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+        <div class="frame-container">
+            <!-- Top AppBar -->
+            <header class="top-app-bar">
+                <div class="app-bar-container">
+                    <div class="left-container">
+                        <div class="brand-container">
+                            <span class="brand-text">Neighborly</span>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <button class="icon-button" id="favorites-btn" title="Favoritos">♡</button>
+                        <button class="user-profile-border" id="profile-btn" title="Perfil">
+                            <div class="user-profile"></div>
+                        </button>
                     </div>
                 </div>
-                <div class="right-container">
-                    <button class="icon-button">♡</button>
-                    <div class="user-profile-border">
-                        <div class="user-profile"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
+            </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Business Hero Section -->
-            <section class="business-hero-section">
-                <div class="business-cover"></div>
-                <div class="background-overlay">
-                    <div class="hero-content-container">
-                        <div class="hero-text-container">
-                            <h1 class="heading-1">L'Artisan Boulangerie</h1>
-                            <div class="category-rating-container">
-                                <div class="category-badge">Bakery & Cafe</div>
-                                <div class="rating-container">
-                                    <span class="star-icon">★</span>
-                                    <div class="rating-number">4.9</div>
-                                    <div class="reviews-count">(124 reviews)</div>
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Search Section -->
+                <section class="search-section">
+                    <input type="text" class="search-input" placeholder="Buscar 'Padaria' ou 'Encanador'..." />
+                </section>
+
+                <!-- Categories -->
+                <section class="categories-section">
+                    <h2 class="section-title">Categorias</h2>
+                    <div class="categories-container">
+                        <button class="category-btn">🍽️ Gastronomia</button>
+                        <button class="category-btn">🔧 Serviços</button>
+                        <button class="category-btn">🏥 Saúde</button>
+                    </div>
+                </section>
+
+                <!-- Top Rated Businesses -->
+                <section class="top-businesses-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Negócios em Destaque</h2>
+                        <a href="#" class="view-all-link">Ver Tudo →</a>
+                    </div>
+                    <div class="businesses-carousel">
+                        <div class="business-card" onclick="navigateToDetail()">
+                            <div class="business-image"></div>
+                            <div class="business-info">
+                                <h3 class="business-name">The Golden Crumb</h3>
+                                <p class="business-category">Padaria</p>
+                                <p class="business-distance">2.4 km • Downtown</p>
+                                <div class="business-rating">
+                                    <span class="star">★</span>
+                                    <span class="rating-value">4.9</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="verified-badge">
-                            <span class="verified-icon">✓</span>
-                            <span class="verified-text">Verified Local</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Business Stats Section -->
-            <section class="business-stats-section">
-                <div class="stat-chip">
-                    <span class="stat-icon">🕐</span>
-                    <span class="stat-text">Open until 7:00 PM</span>
-                </div>
-                <div class="stat-chip">
-                    <span class="stat-icon">📍</span>
-                    <span class="stat-text">Pinheiros, SP</span>
-                </div>
-                <div class="stat-chip">
-                    <span class="stat-icon">🚚</span>
-                    <span class="stat-text">Local Delivery</span>
-                </div>
-            </section>
-
-            <!-- Experiências Reais Section -->
-            <section class="experiences-section">
-                <div class="experiences-header-container">
-                    <div class="experiences-text-container">
-                        <h2 class="heading-2">Experiências Reais</h2>
-                        <p class="experiences-description">Veja o que a comunidade está<br>vivenciando hoje.</p>
-                    </div>
-                    <button class="view-all-button">
-                        <span>Ver<br>todas</span>
-                        <span class="arrow-icon">→</span>
-                    </button>
-                </div>
-
-                <div class="horizontal-carousel">
-                    <!-- Card 1 -->
-                    <div class="social-proof-card">
-                        <div class="card-background"></div>
-                        <div class="card-gradient"></div>
-                        <div class="card-content">
-                            <p class="experience-quote">"O melhor croissant que já comi<br>em São Paulo. Crocante e…</p>
-                            <div class="likes-container">
-                                <span class="like-icon">♥</span>
-                                <span class="likes-count">24 curtidas</span>
+                        <div class="business-card" onclick="navigateToDetail()">
+                            <div class="business-image" style="background: linear-gradient(135deg, #8B4513, #A0522D);"></div>
+                            <div class="business-info">
+                                <h3 class="business-name">Lumina Day Spa</h3>
+                                <p class="business-category">Bem-estar</p>
+                                <p class="business-distance">1.8 km • Centro</p>
+                                <div class="business-rating">
+                                    <span class="star">★</span>
+                                    <span class="rating-value">4.8</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="user-profile-card">
-                            <div class="user-avatar"></div>
-                            <span class="user-name">Ricardo M.</span>
+                        <div class="business-card" onclick="navigateToDetail()">
+                            <div class="business-image" style="background: linear-gradient(135deg, #DAA520, #CD853F);"></div>
+                            <div class="business-info">
+                                <h3 class="business-name">Rapid Cycles</h3>
+                                <p class="business-category">Serviços</p>
+                                <p class="business-distance">0.9 km • Próximo</p>
+                                <div class="business-rating">
+                                    <span class="star">★</span>
+                                    <span class="rating-value">5.0</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <!-- Card 2 -->
-                    <div class="social-proof-card">
-                        <div class="card-background card-bg-2"></div>
-                        <div class="video-overlay">▶</div>
-                        <div class="card-gradient"></div>
-                        <div class="card-content card-content-video">
-                            <div class="video-badge">VÍDEO</div>
-                            <p class="experience-quote">"A ambientação é perfeita para<br>um café da manhã calmo no…</p>
-                        </div>
-                        <div class="user-profile-card">
-                            <div class="user-avatar"></div>
-                            <span class="user-name">Juliana S.</span>
+                <!-- Build Network Section -->
+                <section class="build-network-section">
+                    <div class="network-card">
+                        <h2>Construa sua rede local</h2>
+                        <p>Junte-se a 500+ locais que descobriram seus locais favoritos este mês através do Neighborly.</p>
+                        <div class="network-stats">
+                            <div class="stat">
+                                <div class="stat-number">1.2k</div>
+                                <div class="stat-label">Negócios</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">15k+</div>
+                                <div class="stat-label">Avaliações</div>
+                            </div>
                         </div>
                     </div>
+                </section>
+            </main>
 
-                    <!-- Card 3 -->
-                    <div class="social-proof-card">
-                        <div class="card-background card-bg-3"></div>
-                        <div class="card-gradient"></div>
-                        <div class="card-content card-content-3">
-                            <p class="experience-quote">"Espaço pet friendly e o café é<br>torrado no local. Recomendo o…</p>
-                        </div>
-                        <div class="user-profile-card">
-                            <div class="user-avatar"></div>
-                            <span class="user-name">Marcos V.</span>
-                        </div>
-                    </div>
-
-                    <!-- More Card -->
-                    <div class="more-card">
-                        <div class="more-card-content">
-                            <span class="plus-icon">+</span>
-                            <p class="more-card-text">Compartilhe sua<br>experiência</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section class="about-section">
-                <div class="about-container">
-                    <h3 class="about-heading">Sobre nós</h3>
-                    <p class="about-description">Fundada em 2018, a L'Artisan Boulangerie traz
-a tradição francesa para o coração de
-Pinheiros. Utilizamos apenas fermentação
-natural e ingredientes de produtores locais
-para garantir o sabor mais autêntico e
-saudável.</p>
-                    <div class="features-list">
-                        <div class="feature-item">
-                            <span class="feature-icon">📶</span>
-                            <span class="feature-text">Wi-Fi Grátis para clientes</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">🐕</span>
-                            <span class="feature-text">Ambiente Pet Friendly</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">♿</span>
-                            <span class="feature-text">Acessibilidade Completa</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Map Section -->
-                <div class="map-integration">
-                    <div class="map-placeholder"></div>
-                    <div class="map-overlay"></div>
-                    <div class="map-info-card">
-                        <div class="map-address">
-                            <p class="address-street">Rua dos Pinheiros, 1234</p>
-                            <p class="address-city">São Paulo - SP</p>
-                        </div>
-                        <button class="map-button">📍</button>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Action Bar -->
-        <footer class="bottom-action-bar">
-            <button class="whatsapp-button">
-                <span class="whatsapp-icon">💬</span>
-                <span class="whatsapp-text">Conversar no WhatsApp</span>
-            </button>
-            <p class="action-subtitle">Reservas e pedidos rápidos em 5 min.</p>
-        </footer>
+            <!-- Bottom Navigation -->
+            <nav class="bottom-navigation">
+                <button class="nav-item active" id="nav-home" onclick="switchScreen('home-screen')">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Descobrir</span>
+                </button>
+                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
+                    <span class="nav-icon">♡</span>
+                    <span class="nav-label">Favoritos</span>
+                </button>
+                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Perfil</span>
+                </button>
+            </nav>
+        </div>
     </div>
+
+    <!-- BUSINESS DETAIL SCREEN -->
+    <div id="detail-screen" class="screen">
+        <div class="frame-container">
+            <!-- Top AppBar -->
+            <header class="top-app-bar">
+                <div class="app-bar-container">
+                    <div class="left-container">
+                        <button class="button-icon" onclick="navigateBack()">←</button>
+                        <div class="brand-container">
+                            <span class="brand-text">Neighborly</span>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <button class="icon-button" onclick="toggleFavorite()">♡</button>
+                        <button class="user-profile-border" onclick="switchScreen('profile-screen')">
+                            <div class="user-profile"></div>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Business Hero Section -->
+                <section class="business-hero-section">
+                    <div class="business-cover"></div>
+                    <div class="background-overlay">
+                        <div class="hero-content-container">
+                            <div class="hero-text-container">
+                                <h1 class="heading-1">L'Artisan Boulangerie</h1>
+                                <div class="category-rating-container">
+                                    <div class="category-badge">Padaria</div>
+                                    <div class="rating-container">
+                                        <span class="star-icon">★</span>
+                                        <div class="rating-number">4.9</div>
+                                        <div class="reviews-count">(124 avaliações)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="verified-badge">
+                                <span class="verified-icon">✓</span>
+                                <span class="verified-text">Verificado Localmente</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Business Stats Section -->
+                <section class="business-stats-section">
+                    <div class="stat-chip">
+                        <span class="stat-icon">🕐</span>
+                        <span class="stat-text">Aberto até 19h</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-icon">📍</span>
+                        <span class="stat-text">Pinheiros, SP</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-icon">🚚</span>
+                        <span class="stat-text">Entrega Local</span>
+                    </div>
+                </section>
+
+                <!-- Experiences Section -->
+                <section class="experiences-section">
+                    <div class="experiences-header-container">
+                        <div class="experiences-text-container">
+                            <h2 class="heading-2">Experiências Reais</h2>
+                            <p class="experiences-description">Veja o que a comunidade está<br>vivenciando hoje.</p>
+                        </div>
+                        <button class="view-all-button" onclick="alert('Ver todas as experiências')">
+                            <span>Ver<br>todas</span>
+                            <span class="arrow-icon">→</span>
+                        </button>
+                    </div>
+
+                    <div class="horizontal-carousel">
+                        <div class="social-proof-card">
+                            <div class="card-background"></div>
+                            <div class="card-gradient"></div>
+                            <div class="card-content">
+                                <p class="experience-quote">"O melhor croissant que já comi<br>em São Paulo. Crocante e…</p>
+                                <div class="likes-container">
+                                    <span class="like-icon">♥</span>
+                                    <span class="likes-count">24 curtidas</span>
+                                </div>
+                            </div>
+                            <div class="user-profile-card">
+                                <div class="user-avatar"></div>
+                                <span class="user-name">Ricardo M.</span>
+                            </div>
+                        </div>
+
+                        <div class="social-proof-card">
+                            <div class="card-background card-bg-2"></div>
+                            <div class="video-overlay">▶</div>
+                            <div class="card-gradient"></div>
+                            <div class="card-content card-content-video">
+                                <div class="video-badge">VÍDEO</div>
+                                <p class="experience-quote">"A ambientação é perfeita para<br>um café da manhã calmo…</p>
+                            </div>
+                            <div class="user-profile-card">
+                                <div class="user-avatar"></div>
+                                <span class="user-name">Juliana S.</span>
+                            </div>
+                        </div>
+
+                        <div class="social-proof-card">
+                            <div class="card-background card-bg-3"></div>
+                            <div class="card-gradient"></div>
+                            <div class="card-content card-content-3">
+                                <p class="experience-quote">"Espaço pet friendly e o café é<br>torrado no local. Recomendo…</p>
+                            </div>
+                            <div class="user-profile-card">
+                                <div class="user-avatar"></div>
+                                <span class="user-name">Marcos V.</span>
+                            </div>
+                        </div>
+
+                        <div class="more-card">
+                            <div class="more-card-content">
+                                <span class="plus-icon">+</span>
+                                <p class="more-card-text">Compartilhe sua<br>experiência</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section class="about-section">
+                    <div class="about-container">
+                        <h3 class="about-heading">Sobre nós</h3>
+                        <p class="about-description">Fundada em 2018, a L'Artisan Boulangerie traz a tradição francesa para o coração de Pinheiros. Utilizamos apenas fermentação natural e ingredientes de produtores locais para garantir o sabor mais autêntico e saudável.</p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon">📶</span>
+                                <span class="feature-text">Wi-Fi Grátis para clientes</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">🐕</span>
+                                <span class="feature-text">Ambiente Pet Friendly</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">♿</span>
+                                <span class="feature-text">Acessibilidade Completa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Section -->
+                    <div class="map-integration">
+                        <div class="map-placeholder"></div>
+                        <div class="map-overlay"></div>
+                        <div class="map-info-card">
+                            <div class="map-address">
+                                <p class="address-street">Rua dos Pinheiros, 1234</p>
+                                <p class="address-city">São Paulo - SP</p>
+                            </div>
+                            <button class="map-button" onclick="alert('Abrir mapa')">📍</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Bottom Action Bar -->
+            <footer class="bottom-action-bar">
+                <button class="whatsapp-button" onclick="alert('Abrindo WhatsApp...')">
+                    <span class="whatsapp-icon">💬</span>
+                    <span class="whatsapp-text">Conversar no WhatsApp</span>
+                </button>
+                <p class="action-subtitle">Reservas e pedidos rápidos em 5 min.</p>
+            </footer>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-navigation">
+                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Descobrir</span>
+                </button>
+                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
+                    <span class="nav-icon">♡</span>
+                    <span class="nav-label">Favoritos</span>
+                </button>
+                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Perfil</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- PROFILE SCREEN -->
+    <div id="profile-screen" class="screen">
+        <div class="frame-container">
+            <!-- Top AppBar -->
+            <header class="top-app-bar">
+                <div class="app-bar-container">
+                    <div class="left-container">
+                        <button class="button-icon" onclick="navigateBack()">←</button>
+                        <div class="brand-container">
+                            <span class="brand-text">Perfil</span>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <button class="icon-button" onclick="alert('Configurações')">⚙️</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content profile-content">
+                <!-- Profile Header -->
+                <section class="profile-header">
+                    <div class="profile-avatar-large"></div>
+                    <h1 class="profile-name">Ricardo Silva</h1>
+                    <p class="profile-member-since">Membro desde Outubro 2023</p>
+                </section>
+
+                <!-- Personal Data Section -->
+                <section class="profile-section">
+                    <h2 class="profile-section-title">👤 Dados Pessoais</h2>
+                    <div class="profile-form">
+                        <div class="form-group">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-input" value="Ricardo Silva" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">E-mail</label>
+                            <input type="email" class="form-input" value="ricardo.silva@email.com" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefone</label>
+                            <input type="tel" class="form-input" value="(11) 98765-4321" />
+                        </div>
+                        <button class="save-button">Salvar Alterações</button>
+                    </div>
+                </section>
+
+                <!-- Notifications Section -->
+                <section class="profile-section">
+                    <h2 class="profile-section-title">🔔 Notificações</h2>
+                    <div class="notifications-list">
+                        <div class="notification-item">
+                            <div class="notification-text">
+                                <p class="notification-title">Ofertas Locais</p>
+                                <p class="notification-desc">Novos negócios perto de você</p>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked />
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-text">
+                                <p class="notification-title">Mensagens Diretas</p>
+                                <p class="notification-desc">Alertas de chat em tempo real</p>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" checked />
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-text">
+                                <p class="notification-title">Atualizações do App</p>
+                                <p class="notification-desc">Novas funcionalidades e melhorias</p>
+                            </div>
+                            <input type="checkbox" class="toggle-checkbox" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Premium Section -->
+                <section class="profile-section">
+                    <div class="premium-card">
+                        <p class="premium-label">MEMBRO PREMIUM</p>
+                        <h2>Apoie seu bairro.</h2>
+                        <p>Sua conta ajuda a fortalecer 12 negócios locais.</p>
+                    </div>
+                </section>
+
+                <!-- Help & Privacy -->
+                <section class="profile-section">
+                    <button class="help-button" onclick="alert('Central de Ajuda')">
+                        <span class="help-icon">❓</span>
+                        <span>Central de Ajuda</span>
+                        <span class="arrow">›</span>
+                    </button>
+                    <button class="help-button" onclick="alert('Política de Privacidade')">
+                        <span class="help-icon">🔒</span>
+                        <span>Privacidade</span>
+                        <span class="arrow">›</span>
+                    </button>
+                </section>
+
+                <!-- Logout -->
+                <section class="profile-section">
+                    <button class="logout-button" onclick="logout()">
+                        <span>🚪</span> Sair
+                    </button>
+                </section>
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-navigation">
+                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Descobrir</span>
+                </button>
+                <button class="nav-item" id="nav-favorites" onclick="switchScreen('favorites-screen')">
+                    <span class="nav-icon">♡</span>
+                    <span class="nav-label">Favoritos</span>
+                </button>
+                <button class="nav-item active" id="nav-profile" onclick="switchScreen('profile-screen')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Perfil</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- FAVORITES SCREEN -->
+    <div id="favorites-screen" class="screen">
+        <div class="frame-container">
+            <!-- Top AppBar -->
+            <header class="top-app-bar">
+                <div class="app-bar-container">
+                    <div class="left-container">
+                        <button class="button-icon" onclick="navigateBack()">←</button>
+                        <div class="brand-container">
+                            <span class="brand-text">Favoritos</span>
+                        </div>
+                    </div>
+                    <div class="right-container">
+                        <button class="icon-button" onclick="alert('Filtrar')">🔽</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content favorites-content">
+                <section class="favorites-list">
+                    <div class="favorite-item" onclick="navigateToDetail()">
+                        <div class="favorite-image"></div>
+                        <div class="favorite-info">
+                            <h3>The Golden Crumb</h3>
+                            <p class="favorite-category">Padaria</p>
+                            <p class="favorite-distance">2.4 km • Downtown</p>
+                            <div class="favorite-rating">
+                                <span class="star">★★★★★</span>
+                                <span class="rating">4.9</span>
+                            </div>
+                        </div>
+                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
+                    </div>
+
+                    <div class="favorite-item" onclick="navigateToDetail()">
+                        <div class="favorite-image" style="background: linear-gradient(135deg, #8B4513, #A0522D);"></div>
+                        <div class="favorite-info">
+                            <h3>Lumina Day Spa</h3>
+                            <p class="favorite-category">Bem-estar</p>
+                            <p class="favorite-distance">1.8 km • Centro</p>
+                            <div class="favorite-rating">
+                                <span class="star">★★★★★</span>
+                                <span class="rating">4.8</span>
+                            </div>
+                        </div>
+                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
+                    </div>
+
+                    <div class="favorite-item" onclick="navigateToDetail()">
+                        <div class="favorite-image" style="background: linear-gradient(135deg, #DAA520, #CD853F);"></div>
+                        <div class="favorite-info">
+                            <h3>Rapid Cycles</h3>
+                            <p class="favorite-category">Serviços</p>
+                            <p class="favorite-distance">0.9 km • Próximo</p>
+                            <div class="favorite-rating">
+                                <span class="star">★★★★★</span>
+                                <span class="rating">5.0</span>
+                            </div>
+                        </div>
+                        <button class="favorite-btn" onclick="event.stopPropagation(); alert('Removido dos favoritos')">♥</button>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-navigation">
+                <button class="nav-item" id="nav-home" onclick="switchScreen('home-screen')">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-label">Descobrir</span>
+                </button>
+                <button class="nav-item active" id="nav-favorites" onclick="switchScreen('favorites-screen')">
+                    <span class="nav-icon">♡</span>
+                    <span class="nav-label">Favoritos</span>
+                </button>
+                <button class="nav-item" id="nav-profile" onclick="switchScreen('profile-screen')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Perfil</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
