@@ -13,368 +13,271 @@ function switchScreen(screenId) {
     // Update navigation highlighting
     updateNavigation(screenId);
 
-    // Scroll to top of new screen
-    window.scrollTo(0, 0);
+    // Scroll to top
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 0);
 }
 
 function updateNavigation(screenId) {
-    // Remove active state from all nav items across all screens
-    const allNavItems = document.querySelectorAll('.nav-item');
-    allNavItems.forEach(item => item.classList.remove('active'));
-
-    // Add active state to current screen's nav items
+    // Get current active screen
     const activeScreen = document.getElementById(screenId);
-    if (activeScreen) {
-        const navItems = activeScreen.querySelectorAll('.nav-item');
-        if (navItems.length > 0) {
-            // Determine which nav item to activate based on screen
-            if (screenId === 'discover-screen') {
-                navItems[0].classList.add('active');
-            } else if (screenId === 'map-screen') {
-                navItems[1].classList.add('active');
-            } else if (screenId === 'profile-screen') {
-                navItems[2].classList.add('active');
-            }
-        }
+    if (!activeScreen) return;
+
+    // Update nav items in this screen
+    const navItems = activeScreen.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+
+    if (screenId === 'discover-screen') {
+        navItems[0] && navItems[0].classList.add('active');
+    } else if (screenId === 'map-screen') {
+        navItems[1] && navItems[1].classList.add('active');
+    } else if (screenId === 'profile-screen') {
+        navItems[2] && navItems[2].classList.add('active');
     }
 }
 
-function navigateToDetail() {
-    switchScreen('discover-screen');
-}
-
-function navigateBack() {
-    switchScreen('discover-screen');
-}
-
-function toggleFavorite() {
+function toggleFavorite(event) {
+    event.stopPropagation();
     const btn = event.target.closest('.icon-button');
     if (btn) {
-        btn.style.animation = 'heartBeat 0.6s ease-in-out';
         btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
-        setTimeout(() => {
-            btn.style.animation = 'none';
-        }, 600);
+        if (btn.textContent === '♥') {
+            btn.style.color = '#FF6B9D';
+        } else {
+            btn.style.color = '#131B2E';
+        }
     }
 }
 
 function logout() {
     if (confirm('Tem certeza que deseja sair?')) {
-        alert('Saindo...');
+        alert('Até logo!');
         switchScreen('discover-screen');
     }
 }
 
-// Add heart beat animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes heartBeat {
-        0%, 100% {
-            transform: scale(1);
-        }
-        10%, 20% {
-            transform: scale(0.9);
-        }
-        30% {
-            transform: scale(1.1);
-        }
-        40% {
-            transform: scale(1.05);
-        }
-        50% {
-            transform: scale(1);
-        }
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Initialize
+// Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
-    // Set discover screen as active on load
+    console.log('✨ Neighborly App Initialized!');
+
+    // Set discover screen as default
     switchScreen('discover-screen');
 
-    // Add smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
+    // Setup all button click handlers
+    setupButtons();
 
-    // Add active state to buttons on click
-    document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            if (!this.classList.contains('nav-item')) {
-                this.style.transform = 'scale(0.95)';
+    // Setup search inputs
+    setupSearch();
+
+    // Setup category buttons
+    setupCategories();
+
+    // Setup business cards
+    setupBusinessCards();
+
+    // Setup profile form
+    setupProfileForm();
+
+    // Setup navigation buttons
+    setupNavigation();
+});
+
+function setupButtons() {
+    // Discover screen buttons
+    const discoverScreen = document.getElementById('discover-screen');
+    if (discoverScreen) {
+        const favBtn = discoverScreen.querySelector('.icon-button');
+        if (favBtn) {
+            favBtn.addEventListener('click', toggleFavorite);
+        }
+
+        const profileBtn = discoverScreen.querySelector('#profile-btn');
+        if (profileBtn) {
+            profileBtn.addEventListener('click', () => switchScreen('profile-screen'));
+        }
+
+        const profileNavBtn = discoverScreen.querySelector('#profile-btn-nav');
+        if (profileNavBtn) {
+            profileNavBtn.addEventListener('click', () => switchScreen('profile-screen'));
+        }
+
+        const mapNavBtn = discoverScreen.querySelector('#map-btn');
+        if (mapNavBtn) {
+            mapNavBtn.addEventListener('click', () => switchScreen('map-screen'));
+        }
+    }
+
+    // Map screen buttons
+    const mapScreen = document.getElementById('map-screen');
+    if (mapScreen) {
+        const mapBtn = mapScreen.querySelector('.map-button');
+        if (mapBtn) {
+            mapBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Abrindo localização no mapa...');
+            });
+        }
+    }
+
+    // Profile screen buttons
+    const profileScreen = document.getElementById('profile-screen');
+    if (profileScreen) {
+        const saveBtn = profileScreen.querySelector('.save-button');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const originalText = saveBtn.textContent;
+                saveBtn.textContent = '✓ Salvo!';
+                saveBtn.style.background = 'linear-gradient(135deg, #25D366, #20BA5C)';
                 setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 100);
+                    saveBtn.textContent = originalText;
+                    saveBtn.style.background = 'linear-gradient(135deg, #6063EE, #4648D4)';
+                }, 2000);
+            });
+        }
+
+        const logoutBtn = profileScreen.querySelector('.logout-button');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', logout);
+        }
+
+        const helpBtns = profileScreen.querySelectorAll('.help-button');
+        helpBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Abrindo: ' + btn.querySelector('span:nth-child(2)').textContent);
+            });
+        });
+    }
+
+    // All notification toggles
+    const toggles = document.querySelectorAll('.toggle-checkbox');
+    toggles.forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const title = this.closest('.notification-item').querySelector('.notification-title');
+            if (title) {
+                title.style.opacity = this.checked ? '1' : '0.6';
             }
         });
     });
+}
 
-    // Handle carousel scrolling
-    const carousels = document.querySelectorAll('.horizontal-carousel');
-    carousels.forEach(carousel => {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        carousel.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
+function setupSearch() {
+    const searchInputs = document.querySelectorAll('.search-input');
+    searchInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.boxShadow = '0 0 0 3px rgba(96, 99, 238, 0.2)';
         });
 
-        carousel.addEventListener('mouseleave', () => {
-            isDown = false;
+        input.addEventListener('blur', function() {
+            this.style.boxShadow = 'none';
         });
 
-        carousel.addEventListener('mouseup', () => {
-            isDown = false;
-        });
-
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 1;
-            carousel.scrollLeft = scrollLeft - walk;
+        input.addEventListener('input', function(e) {
+            console.log('Pesquisando:', e.target.value);
         });
     });
-});
+}
 
-// Search functionality
-const searchInputs = document.querySelectorAll('.search-input');
-searchInputs.forEach(searchInput => {
-    searchInput.addEventListener('input', (e) => {
-        console.log('Search:', e.target.value);
-    });
-
-    searchInput.addEventListener('focus', function() {
-        this.style.boxShadow = '0 0 0 3px rgba(96, 99, 238, 0.2)';
-    });
-
-    searchInput.addEventListener('blur', function() {
-        this.style.boxShadow = 'none';
-    });
-});
-
-// Category button interactions
-const categoryButtons = document.querySelectorAll('.category-btn');
-categoryButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Remove active state from all buttons
-        categoryButtons.forEach(b => {
-            b.style.opacity = '0.7';
-            b.style.transform = 'scale(1)';
+function setupCategories() {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            categoryBtns.forEach(b => {
+                b.style.opacity = '0.7';
+                b.style.transform = 'scale(1)';
+            });
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1.05)';
+            console.log('Categoria selecionada:', this.textContent);
         });
-        // Add to clicked button
-        this.style.opacity = '1';
-        this.style.transform = 'scale(1.05)';
     });
-});
+}
 
-// Business card click animations
-const businessCards = document.querySelectorAll('.business-card');
-businessCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.05) translateY(-4px)';
-    });
+function setupBusinessCards() {
+    const cards = document.querySelectorAll('.business-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05) translateY(-4px)';
+        });
 
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) translateY(0)';
-    });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) translateY(0)';
+        });
 
-    card.addEventListener('click', function() {
-        switchScreen('discover-screen');
-    });
-});
-
-// Form inputs
-const formInputs = document.querySelectorAll('.form-input');
-formInputs.forEach(input => {
-    input.addEventListener('focus', function() {
-        this.parentElement.style.opacity = '1';
-    });
-
-    input.addEventListener('blur', function() {
-        if (!this.value) {
-            this.parentElement.style.opacity = '0.8';
-        }
-    });
-});
-
-// Save button functionality
-const saveButtons = document.querySelectorAll('.save-button');
-saveButtons.forEach(saveButton => {
-    saveButton.addEventListener('click', function() {
-        this.textContent = '✓ Salvo!';
-        this.style.background = 'linear-gradient(135deg, #25D366, #20BA5C)';
-        setTimeout(() => {
-            this.textContent = 'Salvar Alterações';
-            this.style.background = 'linear-gradient(135deg, #6063EE, #4648D4)';
-        }, 2000);
-    });
-});
-
-// Favorite button toggling
-const favoriteBtns = document.querySelectorAll('.favorite-btn');
-favoriteBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        this.textContent = this.textContent === '♡' ? '♥' : '♡';
-        this.style.color = this.textContent === '♥' ? '#FF6B9D' : '#9E9BAF';
-    });
-});
-
-// Notification toggle
-const toggleCheckboxes = document.querySelectorAll('.toggle-checkbox');
-toggleCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const label = this.parentElement.querySelector('.notification-title');
-        if (label) {
-            label.style.color = this.checked ? '#131B2E' : '#9E9BAF';
-        }
-    });
-});
-
-// Stats chip interactions
-const statChips = document.querySelectorAll('.stat-chip');
-statChips.forEach(chip => {
-    chip.addEventListener('click', function() {
-        const text = this.querySelector('.stat-text').textContent;
-        console.log('Clicked stat:', text);
-    });
-});
-
-// Video card overlay
-const videoOverlays = document.querySelectorAll('.video-overlay');
-videoOverlays.forEach(overlay => {
-    const card = overlay.closest('.social-proof-card');
-    if (card) {
         card.addEventListener('click', function() {
-            console.log('Play video');
-            alert('Reproduzindo vídeo...');
+            const name = this.querySelector('.business-name').textContent;
+            alert('Visualizando: ' + name);
         });
+    });
+
+    // Nearby items
+    const nearbyItems = document.querySelectorAll('.nearby-item');
+    nearbyItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', function() {
+            const name = this.querySelector('h3').textContent;
+            alert('Abrindo detalhes de: ' + name);
+        });
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(4px)';
+        });
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+}
+
+function setupProfileForm() {
+    const inputs = document.querySelectorAll('.form-input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = '#6063EE';
+            this.style.backgroundColor = 'white';
+            this.style.boxShadow = '0 0 0 3px rgba(96, 99, 238, 0.1)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.style.borderColor = '#E8E7FF';
+            this.style.boxShadow = 'none';
+        });
+    });
+}
+
+function setupNavigation() {
+    // Discover screen nav
+    const discoverNav = document.getElementById('discover-screen')?.querySelectorAll('.nav-item');
+    if (discoverNav && discoverNav.length >= 3) {
+        discoverNav[0].addEventListener('click', () => switchScreen('discover-screen'));
+        discoverNav[1].addEventListener('click', () => switchScreen('map-screen'));
+        discoverNav[2].addEventListener('click', () => switchScreen('profile-screen'));
     }
-});
 
-// More card (share experience)
-const moreCards = document.querySelectorAll('.more-card');
-moreCards.forEach(moreCard => {
-    moreCard.addEventListener('click', function() {
-        alert('Compartilhe sua experiência!\n\nRedirecionando para o formulário de experiência...');
-    });
-});
-
-// Map button
-const mapButtons = document.querySelectorAll('.map-button');
-mapButtons.forEach(mapButton => {
-    mapButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Abrindo mapa com localização...');
-    });
-});
-
-// WhatsApp button
-const whatsappButtons = document.querySelectorAll('.whatsapp-button');
-whatsappButtons.forEach(whatsappButton => {
-    whatsappButton.addEventListener('click', function() {
-        console.log('Opening WhatsApp...');
-        alert('Redirecionando para WhatsApp...');
-    });
-});
-
-// View all buttons
-const viewAllButtons = document.querySelectorAll('.view-all-button');
-viewAllButtons.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Ver todas as experiências');
-    });
-});
-
-// Help buttons
-const helpButtons = document.querySelectorAll('.help-button');
-helpButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-        const text = this.textContent.split('\n')[0].trim();
-        console.log('Help:', text);
-        alert('Abrindo: ' + text);
-    });
-});
-
-// Profile buttons
-const profileBtns = document.querySelectorAll('#profile-btn');
-profileBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        switchScreen('profile-screen');
-    });
-});
-
-const favoritesBtns = document.querySelectorAll('#favorites-btn');
-favoritesBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        switchScreen('map-screen');
-    });
-});
-
-// Navigation button clicks
-document.addEventListener('click', function(e) {
-    // Handle discover nav buttons
-    if (e.target.closest('.nav-item')) {
-        const btn = e.target.closest('.nav-item');
-        const screen = btn.closest('.screen');
-        
-        if (screen.id === 'discover-screen') {
-            const navItems = screen.querySelectorAll('.nav-item');
-            if (btn === navItems[0]) switchScreen('discover-screen');
-            if (btn === navItems[1]) switchScreen('map-screen');
-            if (btn === navItems[2]) switchScreen('profile-screen');
-        } else if (screen.id === 'map-screen') {
-            const navItems = screen.querySelectorAll('.nav-item');
-            if (btn === navItems[0]) switchScreen('discover-screen');
-            if (btn === navItems[1]) switchScreen('map-screen');
-            if (btn === navItems[2]) switchScreen('profile-screen');
-        } else if (screen.id === 'profile-screen') {
-            const navItems = screen.querySelectorAll('.nav-item');
-            if (btn === navItems[0]) switchScreen('discover-screen');
-            if (btn === navItems[1]) switchScreen('map-screen');
-            if (btn === navItems[2]) switchScreen('profile-screen');
-        }
+    // Map screen nav
+    const mapNav = document.getElementById('map-screen')?.querySelectorAll('.nav-item');
+    if (mapNav && mapNav.length >= 3) {
+        mapNav[0].addEventListener('click', () => switchScreen('discover-screen'));
+        mapNav[1].addEventListener('click', () => switchScreen('map-screen'));
+        mapNav[2].addEventListener('click', () => switchScreen('profile-screen'));
     }
-});
 
-// Responsive adjustments
-function handleResize() {
-    const width = window.innerWidth;
-    const frameContainer = document.querySelector('.frame-container');
-    
-    if (width < 360) {
-        frameContainer.style.fontSize = '14px';
-    } else if (width < 480) {
-        frameContainer.style.fontSize = '15px';
-    } else {
-        frameContainer.style.fontSize = '16px';
+    // Profile screen nav
+    const profileNav = document.getElementById('profile-screen')?.querySelectorAll('.nav-item');
+    if (profileNav && profileNav.length >= 3) {
+        profileNav[0].addEventListener('click', () => switchScreen('discover-screen'));
+        profileNav[1].addEventListener('click', () => switchScreen('map-screen'));
+        profileNav[2].addEventListener('click', () => switchScreen('profile-screen'));
     }
 }
 
-window.addEventListener('resize', handleResize);
-handleResize();
+// Add button press animation
+document.addEventListener('mousedown', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+        e.target.style.transform = 'scale(0.95)';
+    }
+});
 
-console.log('✨ Neighborly App Initialized!');
+document.addEventListener('mouseup', function(e) {
+    if (e.target.tagName === 'BUTTON') {
+        e.target.style.transform = 'scale(1)';
+    }
+});
